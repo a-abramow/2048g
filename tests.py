@@ -1,7 +1,10 @@
 import unittest
 
-from logics import get_number_from_index, get_empty_list, get_index_from_number, \
-    is_zero_in_mas, move_left, move_up, move_down, can_move
+
+from logics import *
+
+from main import get_number_from_index, get_empty_list
+
 
 
 class Test2048(unittest.TestCase):
@@ -144,5 +147,18 @@ class Test2048(unittest.TestCase):
         ]
 
         self.assertEqual(can_move(mas), False)
+
+
 if __name__ == 'main':
     unittest.main()
+
+    def test_4(self):
+        a = []
+        mas = [
+            [1, 1, 1, 1],
+            [1, 1, 1, 1],
+            [2, 1, 1, 1],
+            [1, 1, 1, 1],
+        ]
+        self.assertEqual(get_empty_list(mas), a)
+
