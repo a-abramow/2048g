@@ -1,6 +1,6 @@
 import unittest
 
-from main import get_number_from_index, get_empty_list
+from main import get_number_from_index, get_empty_list, get_index_from_number
 
 
 class Test2048(unittest.TestCase):
@@ -30,3 +30,9 @@ class Test2048(unittest.TestCase):
             [1, 1, 1, 1],
         ]
         self.assertEqual(get_empty_list(mas), a)
+
+    def test_5(self):
+        self.assertEqual(get_index_from_number(13), (3, 0))
+
+    def test_6(self):
+        self.assertEqual(get_index_from_number(8), (1, 3))
