@@ -93,4 +93,19 @@ def move_up(mas):
 
 
 def move_down(mas):
-    pass
+    for j in range(4):
+        column = []
+        for i in range(4):
+            if mas[i][j] != 0:
+                column.append(mas[i][j])
+        while len(column) != 4:
+            column.insert(0,0)
+
+        for i in range(3,0,-1):
+            if column[i] == column[i - 1] and column[i] != 0:
+                column[i] *= 2
+                column.pop(i - 1)
+                column.insert(0,0)
+        for i in range(4):
+            mas[i][j] = column[i]
+    return mas
