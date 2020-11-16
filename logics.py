@@ -85,10 +85,11 @@ def move_up(mas):
         for i in range(3):
             if column[i] == column[i + 1] and column[i] != 0:
                 column[i] *= 2
-                column[i].pop(i + 1)
-                column[i].insert(0)
+                column.pop(i + 1)
+                column.append(0)
         for i in range(4):
             mas[i][j] = column[i]
+    return mas
 
 
 def move_down(mas):

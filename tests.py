@@ -1,7 +1,7 @@
 import unittest
 
 from logics import get_number_from_index, get_empty_list, get_index_from_number, \
-is_zero_in_mas, move_left, move_up
+    is_zero_in_mas, move_left, move_up
 
 
 class Test2048(unittest.TestCase):
@@ -95,21 +95,21 @@ class Test2048(unittest.TestCase):
         ]
         self.assertEqual(move_left(mas), rez)
 
+    def test_12(self):
+        mas = [
+            [2, 4, 0, 2],
+            [2, 0, 2, 0],
+            [4, 0, 2, 4],
+            [4, 4, 0, 0],
+        ]
+        rez = [
+            [4, 8, 4, 2],
+            [8, 0, 0, 4],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ]
+        self.assertEqual(move_up(mas), rez)
 
-     def test_12(self):
-            mas = [
-                [2, 4, 0, 2],
-                [2, 0, 2, 0],
-                [4, 0, 2, 4],
-                [4, 4, 0, 0],
-            ]
-            rez = [
-                [4, 8, 4, 2],
-                [8, 0, 0, 4],
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-            ]
-            self.assertEqual(move_up(mas), rez)
 
 if __name__ == 'main':
     unittest.main()
