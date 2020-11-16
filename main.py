@@ -80,6 +80,8 @@ mas[3][0] = 4
 print(get_empty_list(mas))
 pretty_print(mas)
 
+USERNAME = None
+
 # for gamer in get_best():
 #    print(gamer)
 
@@ -88,6 +90,50 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
 TITLE_REC = pygame.Rect(0, 0, WIDTH, 110)
 score = 0
+
+
+def draw_intro():
+    img2048 = pygame.image.load('og_image.png')
+    font = pygame.font.SysFont("stxingkai", 70)
+    text_welcome = font.render("Welcome!", True, WHITE)
+    name = 'Введите имя'
+    is_find_name = False
+    while not is_find_name:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN:
+                if event.unicode.isalpha():
+                    if name == 'Введите имя':
+                        name = event.unicode
+                    else:
+                        name += event.unicode
+                elif event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                elif event.key == pygame.K_RETURN:
+                    if len(name) > 2:
+                        global USERNAME
+                        USERNAME = name
+                        is_find_name = True
+                        break
+
+        screen.fill(BLACK)
+
+        text_name = font.render(name, True, WHITE)
+        rect_name = text_name.get_rect()
+        rect_name.center = screen.get_rect().center
+
+        screen.blit(pygame.transform.scale(img2048, [200, 200]), [10, 10])
+        screen.blit(text_welcome, (230, 85))
+        screen.blit(text_name, rect_name)
+        pygame.display.update()
+    screen.fill(BLACK)
+
+
+draw_intro()
+
 draw_interface(score)
 pygame.display.update()
 
@@ -115,3 +161,5 @@ while is_zero_in_mas(mas) or can_move(mas):
             print(f'Мы заполнили элемент под номером {random_num}')
             draw_interface(score, delta)
             pygame.display.update()
+
+    print(USERNAME)
