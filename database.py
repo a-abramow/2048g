@@ -30,6 +30,3 @@ def get_best():  # создаем функцию с запросом для ис
     limit 3
     """)
     return cur.fetchall()
-
-
-

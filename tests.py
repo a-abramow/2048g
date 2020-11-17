@@ -1,10 +1,8 @@
 import unittest
 
-
 from logics import *
 
 from main import get_number_from_index, get_empty_list
-
 
 
 class Test2048(unittest.TestCase):
@@ -142,8 +140,8 @@ class Test2048(unittest.TestCase):
         mas = [
             [2, 4, 8, 2],
             [9, 7, 11, 12],
-            [13, 31,111,54],
-            [74, 47,70, 99],
+            [13, 31, 111, 54],
+            [74, 47, 70, 99],
         ]
 
         self.assertEqual(can_move(mas), False)
@@ -151,6 +149,7 @@ class Test2048(unittest.TestCase):
 
 if __name__ == 'main':
     unittest.main()
+
 
     def test_4(self):
         a = []
@@ -161,4 +160,3 @@ if __name__ == 'main':
             [1, 1, 1, 1],
         ]
         self.assertEqual(get_empty_list(mas), a)
-

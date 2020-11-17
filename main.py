@@ -73,9 +73,6 @@ MARGIN = 10
 WIDTH = BLOCKS * SIZE_BLOCK + (BLOCKS + 1) * MARGIN
 HEIGHT = WIDTH + 110
 
-
-
-
 # for gamer in get_best():
 #    print(gamer)
 
@@ -114,10 +111,11 @@ if 'data.txt' in os.listdir(path):
         mas = data['mas']
         score = data['score']
         USERNAME = data['user']
-    full_path = os.path.join(path,'data.txt')
+    full_path = os.path.join(path, 'data.txt')
     os.remove(full_path)
 else:
     init_const()
+
 
 def draw_intro():
     img2048 = pygame.image.load('og_image.png')
@@ -158,14 +156,14 @@ def draw_intro():
     screen.fill(BLACK)
 
 
-def draw_game_over():    # функция завершающей заставки
+def draw_game_over():  # функция завершающей заставки
     global USERNAME, mas, score, GAMERS_DB
     img2048 = pygame.image.load('og_image.png')
     font = pygame.font.SysFont("comicsansms", 50)
     text_game_over = font.render("Game over!", True, WHITE)
     text_score = font.render(f"Вы набрали {score}", True, WHITE)
     best_score = GAMERS_DB[0][1]
-    if score > best_score:                   # условие, побит ли рекорд?
+    if score > best_score:  # условие, побит ли рекорд?
         text = "Рекорд побит"
     else:
         text = f"Рекорд {best_score}"
@@ -173,7 +171,7 @@ def draw_game_over():    # функция завершающей заставк�
     insert_result(USERNAME, score)
     GAMERS_DB = get_best()
     make_disicion = False
-    while not make_disicion:                              # бесконечный цикл, в котором обрабатываются события
+    while not make_disicion:  # бесконечный цикл, в котором обрабатываются события
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -189,7 +187,6 @@ def draw_game_over():    # функция завершающей заставк�
                     make_disicion = True
                     init_const()
 
-
         screen.fill(BLACK)
         screen.blit(text_game_over, (220, 85))
         screen.blit(text_score, (30, 250))
@@ -198,13 +195,14 @@ def draw_game_over():    # функция завершающей заставк�
         pygame.display.update()
     screen.fill(BLACK)
 
+
 def save_game():
     data = {
-        'user':USERNAME,
+        'user': USERNAME,
         'score': score,
         'mas': mas
     }
-    with open('data.txt','w') as outfile:
+    with open('data.txt', 'w') as outfile:
         json.dump(data, outfile)
 
 
