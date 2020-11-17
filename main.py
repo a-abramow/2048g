@@ -64,7 +64,9 @@ COLORS = {
     16: (255, 235, 255),
     32: (255, 235, 128),
     64: (255, 235, 0),
-    128: (255, 128, 0)
+    128: (255, 128, 0),
+    256: (255, 0, 0),
+    512: (0, 255, 0)
 }
 WHITE = (255, 255, 255)
 GRAY = (130, 130, 130)
@@ -99,7 +101,6 @@ def draw_intro():
     name = 'Введите имя'
     is_find_name = False
     while not is_find_name:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -132,6 +133,33 @@ def draw_intro():
     screen.fill(BLACK)
 
 
+def draw_game_over():                        # функция завершающей заставки
+    img2048 = pygame.image.load('og_image.png')
+    font = pygame.font.SysFont("stxingkai", 65)
+    text_game_over = font.render("Game over!", True, WHITE)
+    text_score = font.render(f"Вы набрали {score}", True, WHITE)
+    best_score = GAMERS_DB[0][1]
+    if score > best_score:                   # условие, побит ли рекорд?
+        text = "Рекорд побит"
+    else:
+        text = f"Рекорд {best_score}"
+    text_record = font.render(text, True, WHITE)
+
+    while True:                              # бесконечный цикл, в котором обрабатываются события
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)
+        screen.fill(BLACK)
+        screen.blit(text_game_over, (220, 85))
+        screen.blit(text_score, (30, 250))
+        screen.blit(text_record, (30, 300))
+        screen.blit(pygame.transform.scale(img2048, [200, 200]), [10, 10])
+        pygame.display.update()
+
+
+
+
 draw_intro()
 
 draw_interface(score)
@@ -153,13 +181,17 @@ while is_zero_in_mas(mas) or can_move(mas):
             elif event.key == pygame.K_DOWN:
                 mas, delta = move_down(mas)
             score += delta
-            empty = get_empty_list(mas)
-            random.shuffle(empty)
-            random_num = empty.pop()
-            x, y = get_index_from_number(random_num)
-            mas = insert_2_or_4(mas, x, y)
-            print(f'Мы заполнили элемент под номером {random_num}')
+            if is_zero_in_mas(mas):
+                empty = get_empty_list(mas)
+                random.shuffle(empty)
+                random_num = empty.pop()
+                x, y = get_index_from_number(random_num)
+                mas = insert_2_or_4(mas, x, y)
+                print(f'Мы заполнили элемент под номером {random_num}')
             draw_interface(score, delta)
             pygame.display.update()
 
     print(USERNAME)
+
+
+draw_game_over()
