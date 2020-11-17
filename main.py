@@ -148,7 +148,7 @@ def draw_intro():
 
 
 def draw_game_over():    # функция завершающей заставки
-    global USERNAME, mas, score
+    global USERNAME, mas, score, GAMERS_DB
     img2048 = pygame.image.load('og_image.png')
     font = pygame.font.SysFont("comicsansms", 50)
     text_game_over = font.render("Game over!", True, WHITE)
@@ -160,6 +160,7 @@ def draw_game_over():    # функция завершающей заставк�
         text = f"Рекорд {best_score}"
     text_record = font.render(text, True, WHITE)
     insert_result(USERNAME, score)
+    GAMERS_DB = get_best()
     make_disicion = False
     while not make_disicion:                              # бесконечный цикл, в котором обрабатываются события
         for event in pygame.event.get():
