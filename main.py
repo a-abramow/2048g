@@ -2,6 +2,8 @@ from logics import *
 import pygame
 import sys
 from database import get_best, cur, insert_result
+import json
+import os
 
 GAMERS_DB = get_best()
 
@@ -104,9 +106,18 @@ def init_const():
 
 mas = None
 score = None
-init_const()
 USERNAME = None
-
+path = os.getcwd()
+if 'data.txt' in os.listdir(path):
+    with open('data.txt') as file:
+        data = json.load(file)
+        mas = data['mas']
+        score = data['score']
+        USERNAME = data['user']
+    full_path = os.path.join(path,'data.txt')
+    os.remove(full_path)
+else:
+    init_const()
 
 def draw_intro():
     img2048 = pygame.image.load('og_image.png')
@@ -187,6 +198,15 @@ def draw_game_over():    # функция завершающей заставк�
         pygame.display.update()
     screen.fill(BLACK)
 
+def save_game():
+    data = {
+        'user':USERNAME,
+        'score': score,
+        'mas': mas
+    }
+    with open('data.txt','w') as outfile:
+        json.dump(data, outfile)
+
 
 def game_loop():
     global score, mas
@@ -196,6 +216,7 @@ def game_loop():
     while is_zero_in_mas(mas) or can_move(mas):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                save_game()
                 pygame.quit()
                 sys.exit(0)
             elif event.type == pygame.KEYDOWN:
