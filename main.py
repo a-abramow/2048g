@@ -192,7 +192,7 @@ def game_loop():
     global score, mas
     draw_interface(score)
     pygame.display.update()
-    is_btn_clk = False
+    is_mas_move = False
     while is_zero_in_mas(mas) or can_move(mas):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -201,26 +201,22 @@ def game_loop():
             elif event.type == pygame.KEYDOWN:
                 delta = 0
                 if event.key == pygame.K_LEFT:
-                    mas, delta = move_left(mas)
-                    is_btn_clk = True
+                    mas, delta, is_mas_move = move_left(mas)
                 elif event.key == pygame.K_RIGHT:
-                    mas, delta = move_right(mas)
-                    is_btn_clk = True
+                    mas, delta, is_mas_move = move_right(mas)
                 elif event.key == pygame.K_UP:
-                    mas, delta = move_up(mas)
-                    is_btn_clk = True
+                    mas, delta, is_mas_move = move_up(mas)
                 elif event.key == pygame.K_DOWN:
-                    mas, delta = move_down(mas)
-                    is_btn_clk = True
+                    mas, delta, is_mas_move = move_down(mas)
                 score += delta
-                if is_zero_in_mas(mas) and is_btn_clk:
+                if is_zero_in_mas(mas) and is_mas_move:
                     empty = get_empty_list(mas)
                     random.shuffle(empty)
                     random_num = empty.pop()
                     x, y = get_index_from_number(random_num)
                     mas = insert_2_or_4(mas, x, y)
                     print(f'Мы заполнили элемент под номером {random_num}')
-                    is_btn_clk = False
+                    is_mas_move = False
                 draw_interface(score, delta)
                 pygame.display.update()
 
